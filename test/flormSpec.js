@@ -106,15 +106,33 @@ describe('module angularFlorm',function(){
   });
 
   describe('Upping the complexity a notch',function(){
-    var $cats,$yarns;
-    beforeEach(module('florm-test'));
+    var Cats,Yarns;
 
     beforeEach(inject(function($injector){
-      $cats = $injector.get('$cats');
-      $yarns = $injector.get('$yarns');
-    }));
+      Cats = $florm('cats',{ hasMany:'yarns' });
+      Cats.truncate();
+      Cats.create({name:'Scrappi'});
 
-    describe('Relation between a cat and his yarns',function(){});
+      Yarns = $florm('yarns',{ belongsTo: 'cats'});
+      Yarns.truncate();
+      Yarns.create({fibers:'cotton',color:'blue'});
+      Yarns.create({fibers:'cotton',color:'red'});
+    }));
+    it('A cat must have room for his yarns',function(){
+      var cat = Cats.all()[0];
+      expect(cat.yarns).toEqual(jasmine.any(Array));
+    });
+    it('Associate a yarn with the cat',function(){
+      Cats.first().yarns.push(Yarns.first());
+      expect(Cats.first().yarns.length).toBe(1);
+      expect(Yarns.first().catsId).toBe(Cats.first().id);
+    });
+    it('Should be possible to splice an association',function(){
+      Cats.first().yarns.push(Yarns.first());
+      expect(Cats.first().yarns.length).toBe(1);
+      Cats.first().yarns.splice(0,1);
+      expect(Cats.first().yarns.length).toBe(0);
+    });
   });
 
 });

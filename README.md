@@ -29,6 +29,18 @@ You've probably seen this before somewhere already.
     Users.find(user.id); // --> {name:'foo'}
     Users.find({name: 'foo'}); // --> {name:'foo'}
 
+### Relations
+
+    var Gorillas = $florm('gorillas',{hasMany:'bananas'}),
+    Bananas = $florm('bananas',{belongsTo:'gorillas'}),
+    ape = Gorillas.create();
+    fruit = Banans.create();
+    // Associate fruit to ape.
+    ape.bananas.push(fruit);
+
+    // Remove relation
+    ape.banans.splice(0,1);
+
 
 Check the sources & testspecs for more info.
 
