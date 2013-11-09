@@ -35,11 +35,23 @@ You've probably seen this before somewhere already.
     Bananas = $florm('bananas',{belongsTo:'gorillas'}),
     ape = Gorillas.create();
     fruit = Banans.create();
+
     // Associate fruit to ape.
     ape.bananas.push(fruit);
 
+    // Read relations
+    console.log(ape.bananas); // --> [{...}]
+    // -- or the reverse
+    console.log(fruit.gorillas); --> {...}
+
     // Remove relation
     ape.banans.splice(0,1);
+
+note: I'm skipping inflections for now, was about to add an inflection
+dependency but figured it would just cause unecessary overhead. 
+So in other words, you'll have to live with `fruit.gorillas` instead of
+`fruit.gorilla` 
+
 
 
 Check the sources & testspecs for more info.
