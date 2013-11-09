@@ -5,6 +5,16 @@ storing models in localstore.
 
 This is in alpha/wip state, come back later.
 
+## Installation
+  
+Through bower:
+
+
+    $ bower install https://github.com/telamon/angular-florm.git --save
+
+
+Otherwise you need to grab `angular-florm.js` from `lib/` folder
+
 ## Usage
 You've probably seen this before somewhere already.
 
