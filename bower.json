@@ -1,0 +1,23 @@
+{
+  "name": "angular-florm",
+  "version": "0.0.0",
+  "authors": [
+    "Tony Ivanov <telamohn@gmail.com>"
+  ],
+  "description": "Frontend Localstore ORM",
+  "main": "angular-florm.js",
+  "keywords": [
+    "ORM",
+    "angular",
+    "localstore"
+  ],
+  "license": "MIT",
+  "homepage": "https://www.github.com/telamon/angular-florm",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
