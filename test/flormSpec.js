@@ -41,6 +41,14 @@ describe('module angularFlorm',function(){
       inst.testField='possum';
       inst.save();
       expect(inst.id).toBeDefined();
+      expect(inst.createdAt).toEqual(jasmine.any(Date));
+      expect(inst.updatedAt).toEqual(jasmine.any(Date));
+      expect(inst.createdAt).toEqual(inst.updatedAt); // Compare dates, not instances.
+      // let's check the management of updated_at field while we're at it.
+      inst.updatedAt = new Date(0); 
+      inst.save();
+      expect(inst.updatedAt).not.toEqual(new Date(0));
+
     });
     it('all should nolonger return an empty array',function(){
       var model = $florm('amodel');
