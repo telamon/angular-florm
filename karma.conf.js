@@ -18,9 +18,7 @@ module.exports = function(config) {
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
       'bower_components/underscore/underscore.js',
-      'bower_components/inflection/lib/inflection.js',
       'lib/angular-florm.js',
-      'test/models.js',
       'test/flormSpec.js'
     ],
 
