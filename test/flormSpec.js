@@ -1,15 +1,19 @@
 'use strict';
 
 describe('module ngFlorm',function(){
-  var $rootScope,$compile,$window,$florm;
+  var $window,
+  //$rootScope,
+  //$compile,
+  $florm;
 
   beforeEach(module('ngFlorm'));
 
   beforeEach(inject(function($injector){
-    $rootScope = $injector.get('$rootScope');
+    //$rootScope = $injector.get('$rootScope');
     $window = $injector.get('$window');
-    $compile = $injector.get('$compile');
+    //$compile = $injector.get('$compile');
     $florm = $injector.get('$florm');
+    $window.localStorage.clear();
   }));
 
   it('my test env should be sane',function(){
@@ -52,12 +56,14 @@ describe('module ngFlorm',function(){
     });
     it('all should nolonger return an empty array',function(){
       var model = $florm('amodel');
+      model.create();
       expect(model.all()).toEqual(jasmine.any(Array));
       expect(model.all().length).toEqual(1);
     });
 
     it('should be deserialized an instance',function(){
       var model = $florm('amodel');
+      model.create({testField:'possum'});
       var inst = model.all()[0];
       expect(inst).toBeDefined();
       expect(inst.testField).toBe('possum');
@@ -66,7 +72,7 @@ describe('module ngFlorm',function(){
     it("should maybe do basic dirty checking and refuse to save() on concurrent modifications",function(){
       // TODO: Think this feature through, it might be stupid..
       var model = $florm('amodel');
-      model.create({});
+      model.create();
       var reference1 = model.first();
       var reference2 = model.first();
       reference1.fieldOne = "breakfast";

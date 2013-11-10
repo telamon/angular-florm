@@ -17,7 +17,6 @@ module.exports = function(config) {
       'test/polyfill.js',
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'bower_components/underscore/underscore.js',
       'lib/angular-florm.js',
       'test/flormSpec.js'
     ],

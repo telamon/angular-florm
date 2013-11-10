@@ -1,6 +1,6 @@
 {
   "name": "angular-florm",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "authors": [
     "Tony Ivanov <telamohn@gmail.com>"
   ],
@@ -22,8 +22,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular": "1.x",
-    "underscore": "~1.5.x"
+    "angular": "1.x"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0"
