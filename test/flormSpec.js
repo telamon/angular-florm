@@ -1,9 +1,9 @@
 'use strict';
 
-describe('module angularFlorm',function(){
+describe('module ngFlorm',function(){
   var $rootScope,$compile,$window,$florm;
 
-  beforeEach(module('angularFlorm'));
+  beforeEach(module('ngFlorm'));
 
   beforeEach(inject(function($injector){
     $rootScope = $injector.get('$rootScope');
