@@ -8,7 +8,7 @@ working model-ish objects persisted in localstore.
 Through bower:
 
 
-    $ bower install https://github.com/telamon/angular-florm.git --save
+    $ bower install angular-florm
 
 
 Otherwise you need to grab `angular-florm.js` from `lib/` folder
