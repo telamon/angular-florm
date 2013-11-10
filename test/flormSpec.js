@@ -63,6 +63,17 @@ describe('module angularFlorm',function(){
       expect(inst.testField).toBe('possum');
       expect(inst.save).toEqual(jasmine.any(Function));
     });
+    it("should maybe do basic dirty checking and refuse to save() on concurrent modifications",function(){
+      // TODO: Think this feature through, it might be stupid..
+      var model = $florm('amodel');
+      model.create({});
+      var reference1 = model.first();
+      var reference2 = model.first();
+      reference1.fieldOne = "breakfast";
+      reference1.save();
+      reference2.anotherField = "cereal";
+      //expect(function(){reference2.save()}).toThrow();
+    });
   });
 
   describe('Find things',function(){
@@ -118,21 +129,58 @@ describe('module angularFlorm',function(){
       Yarns.create({fibers:'cotton',color:'blue'});
       Yarns.create({fibers:'cotton',color:'red'});
     }));
-    it('A cat must have room for his yarns',function(){
-      var cat = Cats.all()[0];
-      expect(cat.yarns).toEqual(jasmine.any(Array));
+    describe('hasMany relation mapping',function(){
+      it('A cat must have room for his yarns',function(){
+        var cat = Cats.all()[0];
+        expect(cat.yarns).toEqual(jasmine.any(Array));
+      });
+      it('Associate a yarn with the cat',function(){
+        Cats.first().yarns.push(Yarns.first());
+        expect(Cats.first().yarns.length).toBe(1);
+        expect(Yarns.first().catsId).toBe(Cats.first().id);
+      });
+      it('Should be possible to splice an association',function(){
+        Cats.first().yarns.push(Yarns.first());
+        expect(Cats.first().yarns.length).toBe(1);
+        Cats.first().yarns.splice(0,1);
+        expect(Cats.first().yarns.length).toBe(0);
+      });
+      it('Should be possible to remove an assoc by object',function(){
+        Cats.first().yarns.push(Yarns.first());
+        Cats.first().yarns.remove(Yarns.first());;
+        expect(Cats.first().yarns.length).toBe(0);
+      });
+      it('should be possible to remove an assoc by id', function(){
+        Cats.first().yarns.push(Yarns.first());
+        Cats.first().yarns.remove(Yarns.first().id);
+        expect(Cats.first().yarns.length).toBe(0);
+      });
     });
-    it('Associate a yarn with the cat',function(){
-      Cats.first().yarns.push(Yarns.first());
-      expect(Cats.first().yarns.length).toBe(1);
-      expect(Yarns.first().catsId).toBe(Cats.first().id);
-    });
-    it('Should be possible to splice an association',function(){
-      Cats.first().yarns.push(Yarns.first());
-      expect(Cats.first().yarns.length).toBe(1);
-      Cats.first().yarns.splice(0,1);
-      expect(Cats.first().yarns.length).toBe(0);
+
+    describe('belongsTo relation mapping',function(){
+      it('should have a field pointing to owner',function(){
+        Cats.first().yarns.push(Yarns.first());
+        expect(Yarns.first().cats).toEqual(jasmine.any(Object));
+        expect(Yarns.first().cats.id).toBe(Cats.first().id);
+      });
+
+      it('should be possible to associate by setting the field',function(){
+        Yarns.first().cats = Cats.first();
+        expect(Yarns.first().cats).toEqual(jasmine.any(Object));
+        expect(Yarns.first().cats.id).toBe(Cats.first().id);
+      });
+      it('should also be possible to set by passing uid',function(){
+        Yarns.first().cats = Cats.first().id;
+        expect(Yarns.first().cats).toEqual(jasmine.any(Object));
+        expect(Yarns.first().cats.id).toBe(Cats.first().id);
+      });
+      it('should remove association when set to null',function(){
+        Yarns.first().cats = Cats.first().id;
+        expect(Yarns.first().cats).toEqual(jasmine.any(Object));
+        expect(Yarns.first().cats.id).toBe(Cats.first().id);
+        Yarns.first().cats = null;
+        expect(Yarns.first().cats).not.toBeDefined();
+      });
     });
   });
-
 });

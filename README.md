@@ -34,25 +34,31 @@ You've probably seen this before somewhere already.
     var Gorillas = $florm('gorillas',{hasMany:'bananas'}),
     Bananas = $florm('bananas',{belongsTo:'gorillas'}),
     ape = Gorillas.create();
-    fruit = Banans.create();
+    banana = Banans.create();
 
-    // Associate fruit to ape.
-    ape.bananas.push(fruit);
+    // Associate banana to ape.
+    ape.bananas.push(banana);
 
     // Read relations
     console.log(ape.bananas); // --> [{...}]
     // -- or the reverse
-    console.log(fruit.gorillas); --> {...}
+    console.log(banana.gorillas); --> {...}
 
     // Remove relation
     ape.banans.splice(0,1);
 
+    // Associating through belongsTo field.
+    banana.gorillas = ape; // using reference
+    banana.gorillas = ape.id; // using id
+
+    // Removing an belongsTo association
+    banana.gorillas = null;
+
+    
 note: I'm skipping inflections for now, was about to add an inflection
 dependency but figured it would just cause unecessary overhead. 
-So in other words, you'll have to live with `fruit.gorillas` instead of
-`fruit.gorilla` 
-
-
+So in other words, you'll have to live with `banana.gorillas` instead of
+`banana.gorilla` 
 
 Check the sources & testspecs for more info.
 
