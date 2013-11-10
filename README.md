@@ -1,9 +1,7 @@
 # angular-florm
 
-This is an attempt to make a slight improvement to our santiy when
-storing models in localstore.
-
-This is in alpha/wip state, come back later.
+A attempt to make a slight improvement to our santiy when
+working model-ish objects persisted in localstore.
 
 ## Installation
   
@@ -59,6 +57,4 @@ note: I'm skipping inflections for now, was about to add an inflection
 dependency but figured it would just cause unecessary overhead. 
 So in other words, you'll have to live with `banana.gorillas` instead of
 `banana.gorilla` 
-
-Check the sources & testspecs for more info.
 

@@ -1,6 +1,6 @@
 {
   "name": "angular-florm",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "authors": [
     "Tony Ivanov <telamohn@gmail.com>"
   ],
@@ -9,7 +9,8 @@
   "keywords": [
     "ORM",
     "angular",
-    "localstore"
+    "localstore",
+    "database"
   ],
   "license": "MIT",
   "homepage": "https://www.github.com/telamon/angular-florm",
@@ -22,7 +23,6 @@
   ],
   "dependencies": {
     "angular": "1.x",
-    "inflection": "~1.2.6",
     "underscore": "~1.5.x"
   },
   "devDependencies": {
