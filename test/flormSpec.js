@@ -16,6 +16,18 @@ describe('module ngFlorm',function(){
     $window.localStorage.clear();
   }));
 
+  // This fails on PhantomJS 1.9.2
+  /*it('arguments sanity tests',function(){
+    var array = [1,2,3];
+    array.extraMethod = function(){
+      expect(arguments.length).toEqual(3);
+      expect(arguments[0]).toEqual(4);
+      console.log(Object.keys(arguments),arguments);
+      expect(Object.keys(arguments).length).toBe(3); // <-- failing
+    };
+    array.extraMethod(4,5,6);
+  });*/
+
   it('my test env should be sane',function(){
     expect($florm).toBeDefined();
   });
