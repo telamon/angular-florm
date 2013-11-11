@@ -15,6 +15,7 @@ Otherwise you need to grab `angular-florm.js` from `lib/` folder
 
 ## Usage
 You've probably seen this before somewhere already.
+
     angular.module('myApp', ['ngFlorm']);
     var $florm = angular.injector(['myApp']).get('$florm')
 
