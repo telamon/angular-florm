@@ -96,8 +96,15 @@ describe('module ngFlorm',function(){
       var model = $florm('amodel');
       var inst = model.create();
       expect(model.first().id).toBe(inst.id);
-      inst.delete();
+      model.delete(inst.id);
       expect(model.first()).toBe(undefined);
+    });
+    it('should be possible to update',function(){
+      var model = $florm('amodel');
+      var inst = model.create({name:'bob'});
+      expect(model.first().name).toBe('bob');
+      model.update(inst.id, {name:'cinder'});
+      expect(model.first().name).toBe('cinder');
     });
   });
 
