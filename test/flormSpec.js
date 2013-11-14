@@ -187,6 +187,18 @@ describe('module ngFlorm',function(){
         Cats.first().yarns.remove(Yarns.first().id);
         expect(Cats.first().yarns.length).toBe(0);
       });
+      it('should not be creating duplicates as described by issue #6',function(){
+        var cat = Cats.create(); 
+        var yarn = Yarns.create({
+          boughtAt: new Date(),
+          status: 'nested',
+          thickness: 0.4,
+          stop: null
+        });
+        expect(cat.yarns.length).toEqual(0);
+        cat.yarns.push(yarn);
+        expect(cat.yarns.length).toEqual(1);
+      });
     });
 
     describe('belongsTo relation mapping',function(){
