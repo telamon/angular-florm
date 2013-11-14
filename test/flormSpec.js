@@ -92,6 +92,13 @@ describe('module ngFlorm',function(){
       reference2.anotherField = "cereal";
       //expect(function(){reference2.save()}).toThrow();
     });
+    it('should be possible to delete', function(){
+      var model = $florm('amodel');
+      var inst = model.create();
+      expect(model.first().id).toBe(inst.id);
+      inst.delete();
+      expect(model.first()).toBe(undefined);
+    });
   });
 
   describe('Find things',function(){
