@@ -1,0 +1,34 @@
+{
+  "name": "angular-florm",
+  "version": "2.0.0",
+  "description": "Angular Localstorage ORM",
+  "main": "karma.conf.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "karma": "~0.12.31"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "karma"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/telamon/angular-florm.git"
+  },
+  "keywords": [
+    "object",
+    "relational",
+    "manager",
+    "localstorage",
+    "angular",
+    "ng"
+  ],
+  "author": "Tony Ivanov",
+  "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/telamon/angular-florm/issues"
+  },
+  "homepage": "https://github.com/telamon/angular-florm"
+}
