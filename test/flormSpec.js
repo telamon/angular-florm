@@ -4,7 +4,7 @@ describe('module ngFlorm',function(){
   var $window,
   //$rootScope,
   //$compile,
-  $florm;
+  florm;
 
   beforeEach(module('ngFlorm'));
 
@@ -12,7 +12,7 @@ describe('module ngFlorm',function(){
     //$rootScope = $injector.get('$rootScope');
     $window = $injector.get('$window');
     //$compile = $injector.get('$compile');
-    $florm = $injector.get('$florm');
+    florm = $injector.get('florm');
     $window.localStorage.clear();
   }));
 
@@ -29,12 +29,12 @@ describe('module ngFlorm',function(){
   });*/
 
   it('my test env should be sane',function(){
-    expect($florm).toBeDefined();
+    expect(florm).toBeDefined();
   });
 
   describe('Model Definition',function(){
     it('should not fail',function(){
-      var AModel = $florm('amodel');
+      var AModel = florm('amodel');
       expect(AModel).toEqual(jasmine.any(Object));
       expect(AModel.new).toBeDefined();
       expect(AModel.all).toBeDefined();
@@ -42,14 +42,14 @@ describe('module ngFlorm',function(){
       expect(AModel.truncate).toBeDefined();
     }); 
     it('should return an empty array right now',function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       // Clear the storage
       model.truncate();
       expect(model.all()).toEqual(jasmine.any(Array));
       expect(model.all().length).toEqual(0);
     });
     it('should be possible to instantiate and persist',function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       var inst = model.new();
       expect(inst).toEqual(jasmine.any(Object));
       expect(inst.save).toEqual(jasmine.any(Function));
@@ -67,14 +67,14 @@ describe('module ngFlorm',function(){
 
     });
     it('all should nolonger return an empty array',function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       model.create();
       expect(model.all()).toEqual(jasmine.any(Array));
       expect(model.all().length).toEqual(1);
     });
 
     it('should be deserialized an instance',function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       model.create({testField:'possum'});
       var inst = model.all()[0];
       expect(inst).toBeDefined();
@@ -83,7 +83,7 @@ describe('module ngFlorm',function(){
     });
     it("should maybe do basic dirty checking and refuse to save() on concurrent modifications",function(){
       // TODO: Think this feature through, it might be stupid..
-      var model = $florm('amodel');
+      var model = florm('amodel');
       model.create();
       var reference1 = model.first();
       var reference2 = model.first();
@@ -93,14 +93,14 @@ describe('module ngFlorm',function(){
       //expect(function(){reference2.save()}).toThrow();
     });
     it('should be possible to delete', function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       var inst = model.create();
       expect(model.first().id).toBe(inst.id);
       model.delete(inst.id);
       expect(model.first()).toBe(undefined);
     });
     it('should be possible to update',function(){
-      var model = $florm('amodel');
+      var model = florm('amodel');
       var inst = model.create({name:'bob'});
       expect(model.first().name).toBe('bob');
       model.update(inst.id, {name:'cinder'});
@@ -112,7 +112,7 @@ describe('module ngFlorm',function(){
     var Person,you,me,someone;
     // Load some fixtures,
     beforeEach(function(){
-      Person = $florm('people');
+      Person = florm('people');
       Person.truncate();
       me = Person.new({name:"Tony",sex:'male'});
       me.save();
@@ -152,11 +152,11 @@ describe('module ngFlorm',function(){
     var Cats,Yarns;
 
     beforeEach(inject(function($injector){
-      Cats = $florm('cats',{ hasMany:'yarns' });
+      Cats = florm('cats',{ hasMany:'yarns' });
       Cats.truncate();
       Cats.create({name:'Scrappi'});
 
-      Yarns = $florm('yarns',{ belongsTo: 'cats'});
+      Yarns = florm('yarns',{ belongsTo: 'cats'});
       Yarns.truncate();
       Yarns.create({fibers:'cotton',color:'blue'});
       Yarns.create({fibers:'cotton',color:'red'});
@@ -227,4 +227,15 @@ describe('module ngFlorm',function(){
       });
     });
   });
+
+  describe('Should be configurable though a flormProvider',function(){
+    it('should possible provde a custom persistenceAdapter',function(){
+      inject(function($injector){
+        //expect($injector.config('flormProvider')).toBeDefined();
+        expect($injector.get('florm')).toBeDefined();
+        expect($injector.get('$q')).toBeDefined();
+      })
+      
+    })
+  })
 });
