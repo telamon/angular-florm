@@ -1,17 +1,34 @@
 'use strict';
 
 describe('module ngFlorm',function(){
-  var $window,
   //$rootScope,
   //$compile,
-  florm;
+  var $window = undefined,
+  flormProvider = undefined;
+  beforeEach(function(){
+    angular.module('dummyModule',function(){})
+    .config(['flormProvider',function(_flormProvider_){
+      flormProvider = _flormProvider_;
+    }]);
+    module('ngFlorm','dummyModule');
+    inject(function(){});
+  })
 
-  beforeEach(module('ngFlorm'));
+  describe('Should be possible to initialize with default values',function(){
+    it('should possible provdie a custom persistenceAdapter',function(){
+      expect(flormProvider).toBeDefined();
+      expect(flormProvider.defaults.prefix).toBe('florm');
+      //expect(typeof flormProvider.defaults.serializer).toBe('function');
+      //expect(flormProvider.defaults.storage).toBeDefined();
+      //expect(flormProvider.defaults.serializer).toBeDefined();
+    })
+  })
+  
+ describe('usage',function(){
 
+  var florm;
   beforeEach(inject(function($injector){
-    //$rootScope = $injector.get('$rootScope');
     $window = $injector.get('$window');
-    //$compile = $injector.get('$compile');
     florm = $injector.get('florm');
     $window.localStorage.clear();
   }));
@@ -28,7 +45,7 @@ describe('module ngFlorm',function(){
     array.extraMethod(4,5,6);
   });*/
 
-  it('my test env should be sane',function(){
+  it('the service should have been injected',function(){
     expect(florm).toBeDefined();
   });
 
@@ -133,12 +150,12 @@ describe('module ngFlorm',function(){
       expect(someone.age).toBe(25);
     });
 
-    it("finding single enty by using id",function(){
+    it("finding single entity by id",function(){
       var dude = Person.find(you.id);
       expect(dude.name).toBe('Walrus');
       expect(dude.weight).toBe(1500);
     });
-    it("finding single entry by using property",function(){
+    it("finding single entity by using property",function(){
       var dudette = Person.find({sex:'female'});
       expect(dudette.id).toBe(someone.id);
     });
@@ -227,15 +244,6 @@ describe('module ngFlorm',function(){
       });
     });
   });
+ })
 
-  describe('Should be configurable though a flormProvider',function(){
-    it('should possible provde a custom persistenceAdapter',function(){
-      inject(function($injector){
-        //expect($injector.config('flormProvider')).toBeDefined();
-        expect($injector.get('florm')).toBeDefined();
-        expect($injector.get('$q')).toBeDefined();
-      })
-      
-    })
-  })
 });
